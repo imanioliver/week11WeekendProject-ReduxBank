@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { bindActionCreators } from 'redux';
-import { selectUser, selectAccount }  from '../actions/index';
+import { selectUser, selectAccount , withdrawFunds }  from '../actions/index';
 
 import { Link } from 'react-router-dom';
 
 
+class Transaction extends Component{
+  render(){
+    console.log("Transcation props: ", this.props);
+    return(
+      <div>
+      <p>This is Transaction</p>
+      <button className="btn btn-danger" onClick={this.props.closeModal}>close modal</button>
+      </div>
+    )
+  }
 
-export default class Transaction extends Component{
-
-    render(){
-        return(
-            <div></div>
-        )
-    }
 }
-
 
 
 function mapStateToProps(state) {

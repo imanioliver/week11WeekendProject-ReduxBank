@@ -3,35 +3,64 @@ import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
 import { selectUser, selectAccount }  from '../actions/index';
-
+import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
+import Transaction from './Transaction'
 
-
+const customStyles = {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+};
 
 class AccountDetail extends Component{
 
+    constructor(props){
+        super(props)
+
+        this.state= {isModalOpen: false};
+
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+      }
+
+      openModal(){
+        this.setState({isModalOpen: true})
+      }
+
+      closeModal(){
+        this.setState({isModalOpen: false})
+      }
+
     render(){
+        let n = 1;
         console.log("all the props: ", this.props);
         return(
 
 
-        <div>
-            <div className="col-md-6">
-              <div className= "card">
-                <div className= "card-block">
-                  <h4 className= "card-title">{this.props.account.accountType} Account Information</h4>
-                  <h6 className= "card-subtitle mb-2 text-muted">{this.props.user.name}</h6>
-                  <div className= "card-text">
-                    <div>Balance: {this.props.account.balance}</div>
-                  </div>
-                </div>
-                <Link className="btn btn-primary" to={`/users/${this.props.user._id}`} >Back to {this.props.user.name}'s Account</Link>
-                <button type="button" className="btn btn-danger" data-toggle="modal" data-target="withdrawModal" >Withdraw Funds</button>
-              </div>
-            </div>
 
-
+        <div className="account">
+            <h2>Account Information</h2>
+            <p>{this.props.account.accountType} for {this.props.user.name}</p>
+            <h5>Balance: {this.props.account.balance}</h5>
+            <button className="btn btn-danger" onClick={this.openModal}>Withdraw</button>
+            <Link className="btn btn-primary" to={`/users/${this.props.match.params.id}`}> Back to user </Link>
+        
+            <Modal
+                isOpen={this.state.isModalOpen}
+                onRequestClose={this.closeModal}
+                closeTimeoutMS={n}
+                shouldCloseOnOverlayClick={false}
+                style={customStyles}
+                contentLabel="Example Modal"
+              >
+              <Transaction closeModal={this.closeModal}/>
+            </Modal>
         </div>
+
         )
     }
 }
@@ -48,6 +77,7 @@ function mapStateToProps(state) {
 
 
 function mapDispatchToProps(state){
+    return{}
 
 }
 
