@@ -10,17 +10,20 @@ import { Link } from 'react-router-dom';
 
 class UserDetail extends Component {
 
+
   render() {
-    if(!this.props.user) {
+    let theUser = this.props.user;
+
+    if(!theUser) {
       return (
         <div>Please select a user...</div>
       )
     }
     //get user id from params of URL
-    const { id } = this.props.match.params;
+    var id = this.props.match.params.id;
     //map over the accounts for the user to create links to them.
-    let accounts = this.props.user.accounts.map(account => {
-
+    let accounts = theUser.accounts.map(account => {
+console.log("props: ", this.props);
       //creating a Link with the account type for
       //each account.
       return (
@@ -56,6 +59,7 @@ class UserDetail extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log(state);
   return {
     user: state.selectedUser,
     account: state.selectedAccount
