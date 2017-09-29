@@ -8,11 +8,19 @@ import { Link } from 'react-router-dom';
 
 class Transaction extends Component{
   render(){
+
+
+
     console.log("Transcation props: ", this.props);
     return(
       <div>
-      <p>This is Transaction</p>
-      <button className="btn btn-danger" onClick={this.props.closeModal}>close modal</button>
+
+      <h3>Your current balance is ${this.props.account.balance}</h3>
+      <button className="btn btn-success" onClick={this.props.closeModal}>Withdraw $5 </button>
+      <button className="btn btn-info" onClick={() => this.props.withdrawFunds(10)}>Withdraw $10</button>
+      <button className="btn btn-warning" onClick={this.props.closeModal}>Withdraw $20</button>
+      <button className="btn btn-danger" onClick={this.props.closeModal}>Cancel</button>
+
       </div>
     )
   }
@@ -26,6 +34,11 @@ function mapStateToProps(state) {
 
 
   */
+
+  return {
+    user: state.selectedUser,
+    account: state.selectedAccount
+  };
 }
 
 

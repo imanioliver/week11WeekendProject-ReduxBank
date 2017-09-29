@@ -36,7 +36,7 @@ class AccountDetail extends Component{
       }
 
     render(){
-        let n = 1;
+        let n = 1
         console.log("all the props: ", this.props);
         return(
 
@@ -48,7 +48,7 @@ class AccountDetail extends Component{
             <h5>Balance: {this.props.account.balance}</h5>
             <button className="btn btn-danger" onClick={this.openModal}>Withdraw</button>
             <Link className="btn btn-primary" to={`/users/${this.props.match.params.id}`}> Back to user </Link>
-        
+
             <Modal
                 isOpen={this.state.isModalOpen}
                 onRequestClose={this.closeModal}
