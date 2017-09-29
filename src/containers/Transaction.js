@@ -3,11 +3,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { selectUser, selectAccount , withdrawFunds }  from '../actions/index';
 
-import { Link } from 'react-router-dom';
-
 
 class Transaction extends Component{
+
+    constructor(props){
+        super(props);
+
+        this.doTheStuff = this.doTheStuff.bind(this);
+    }
+    doTheStuff(num) {
+
+       this.props.withdrawFunds(num);
+       this.props.closeModal();
+
+    }
+
   render(){
+
 
 
 
@@ -16,9 +28,9 @@ class Transaction extends Component{
       <div>
 
       <h3>Your current balance is ${this.props.account.balance}</h3>
-      <button className="btn btn-success" onClick={this.props.closeModal}>Withdraw $5 </button>
+      <button className="btn btn-success" onClick={() => this.doTheStuff(5)}>Withdraw $5 </button>
       <button className="btn btn-info" onClick={() => this.props.withdrawFunds(10)}>Withdraw $10</button>
-      <button className="btn btn-warning" onClick={this.props.closeModal}>Withdraw $20</button>
+      <button className="btn btn-warning" onClick={() => this.doTheStuff(20)}>Withdraw $20</button>
       <button className="btn btn-danger" onClick={this.props.closeModal}>Cancel</button>
 
       </div>
@@ -34,10 +46,12 @@ function mapStateToProps(state) {
 
 
   */
+  const userIdx = state.users.findIndex(user => user._id === state.selectedUser._id);
+  const accountIdx = state.users[userIdx].accounts.findIndex(account => account.id === state.selectedAccount.id);
 
   return {
     user: state.selectedUser,
-    account: state.selectedAccount
+    account: state.users[userIdx].accounts[accountIdx],
   };
 }
 
